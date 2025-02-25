@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # get load averages
-IFS=" " read LOAD1 LOAD5 LOAD15 <<<$(cat /proc/loadavg | awk '{ print $1,$2,$3 }' | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01)
+IFS=" " read LOAD1 LOAD5 LOAD15 <<<$(cat /proc/loadavg | awk '{ print $1,$2,$3 }' | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01)
 # get free memory
-IFS=" " read USED AVAIL TOTAL <<<$(free -htm | grep "Mem" | awk {'print $3,$7,$2'} | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01)
+IFS=" " read USED AVAIL TOTAL <<<$(free -htm | grep "Mem" | awk {'print $3,$7,$2'} | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01)
 # get processes
 PROCESS=`ps -eo user=|sort|uniq -c | awk '{ print $2 " " $1 }'`
 PROCESS_ALL=`echo "$PROCESS"| awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
@@ -15,21 +15,21 @@ PROCESSOR_COUNT=`grep -ioP 'processor\t:' /proc/cpuinfo | wc -l`
 
 W="\e[0;39m"
 G="\e[1;32m"
-figlet -w 50 -c `hostname -s` | /home/ryan/.cargo/bin/lolcrab -S 104 -s 0.01
+figlet -w 50 -c `hostname -s` | $HOME/.cargo/bin/lolcrab -S 104 -s 0.01
 
-echo "  [SYSTEM]-------------------------------------------" | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01
+echo "  [SYSTEM]-------------------------------------------" | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01
 echo -e "  
   Hostname....: `hostname -s`
   Distro......: `cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
   Kernel......: `uname -sr`
   Machine...........: $(hostnamectl | grep -Po 'Hardware Vendor: \K.*') $(hostnamectl | grep -Po 'Hardware Model: \K.*')
   
-  `(echo "[STATUS]-------------------------------------------" | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01)`
+  `(echo "[STATUS]-------------------------------------------" | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01)`
   Uptime......: `uptime -p`
   Load........: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
   Processes...: $G$PROCESS_ROOT$W (root), $G$PROCESS_USER$W (user), $G$PROCESS_ALL$W (total)
   
-  `(echo "[HARDWARE]------------------------------------------" | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01)`
+  `(echo "[HARDWARE]------------------------------------------" | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01)`
   CPU.........: $PROCESSOR_NAME ($G$PROCESSOR_COUNT$W vCPU)
   Memory......: $G$USED$W used, $G$AVAIL$W avail, $G$TOTAL$W total$W
 "
@@ -47,7 +47,7 @@ undim="\e[0m"
 # disk usage: ignore zfs, squashfs & tmpfs
 mapfile -t dfs < <(df -H -x zfs -x squashfs -x tmpfs -x devtmpfs -x overlay -x efivarfs --output=target,pcent,size | tail -n+2)
 #printf "\ndisk usage:\n"
-echo "  [STORAGE]-------------------------------------------" | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01
+echo "  [STORAGE]-------------------------------------------" | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01
 echo -e ""
 #printf "  [STORAGE]\n"
 for line in "${dfs[@]}"; do
@@ -73,6 +73,6 @@ for line in "${dfs[@]}"; do
     bar+="${undim}]"
     # print usage line & bar
     echo "${line}" | awk '{ printf("%-31s%+3s used out of %+4s\n", $1, $2, $3); }' | sed -e 's/^/  /'
-    echo -e "${bar}" | sed -e 's/^/  /' | /home/ryan/.cargo/bin/lolcrab -S 100 -s 0.01
+    echo -e "${bar}" | sed -e 's/^/  /' | $HOME/.cargo/bin/lolcrab -S 100 -s 0.01
 done
 printf "\n"

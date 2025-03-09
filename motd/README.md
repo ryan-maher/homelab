@@ -4,6 +4,7 @@ Inspired by https://github.com/yboetz/motd
 
 To install (RHEL):
 ```
+sudo dnf install epel-release
 sudo dnf install figlet
 sudo dnf install cargo
 cargo install lolcrab

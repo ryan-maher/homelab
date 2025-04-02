@@ -34,9 +34,13 @@ spec:
         volumeMounts:
         - name: valheim-data
           mountPath: /config
-        
         resources:
-          {}
+          requests:
+            memory: "6Gi"
+            cpu: "3"
+          limits:
+            memory: "8Gi"
+            cpu: "3"
       - name: playit
         image: ghcr.io/playit-cloud/playit-agent:0.15
         env:

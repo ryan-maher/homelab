@@ -9,5 +9,5 @@ k create namespace valheim
 k apply -f local-pv-02.yaml -n valheim
 k apply -f valheim-claim-deployment.yaml  -n valheim
 kubectl create secret generic playit-gg-secret --from-literal=SECRET_KEY=<your playit.gg secret key goes here> -n valheim
-k apply -f minecraft-deployment.yaml -n valheim
+k apply -f valheim-deployment.yaml -n valheim
 ```

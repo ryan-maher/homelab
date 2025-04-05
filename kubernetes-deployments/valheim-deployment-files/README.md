@@ -5,6 +5,7 @@ Created with [Addyvan/valheim-k8s](https://github.com/Addyvan/valheim-k8s) and [
 ### Deployment Steps:
 
 ```
+# I have an alias k='kubectl' in my .bashrc
 k create namespace valheim
 k apply -f local-pv-02.yaml -n valheim
 k apply -f valheim-claim-deployment.yaml  -n valheim

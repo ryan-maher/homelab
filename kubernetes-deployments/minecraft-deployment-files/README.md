@@ -5,6 +5,7 @@ Created with [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-ser
 ### Deployment Steps:
 
 ```
+# I have an alias k='kubectl' in my .bashrc
 k create namespace minecraft
 k apply -f local-pv-01.yaml -n minecraft
 k apply -f minecraft-claim-deployment.yaml  -n minecraft

@@ -17,6 +17,13 @@ k apply -f syncthing-deployment.yaml -n syncthing
 ### Web configuration page:
 To access the deployed syncthing configuration page:
 ```
+# Run this command to get the port number:
+k get service -n syncthing
+
+# Under the PORT(S) column your port number will be:
+PORT(S)
+32080:<your-port-number>
+
 # Navigate to this URL in your browser:
-<your-node-ip>:32360
+<your-node-ip>:<your-port-number>
 ```

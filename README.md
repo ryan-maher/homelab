@@ -1,4 +1,4 @@
-# My Homelab
+# My Kubernetes Homelab
 
 A repo containing my self-hosted deployment configs and other related files.
 

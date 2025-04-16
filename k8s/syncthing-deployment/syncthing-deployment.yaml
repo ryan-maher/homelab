@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syncthing
+  labels:
+    app: syncthing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syncthing
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: syncthing
+    spec:
+      containers:
+      - image: linuxserver/syncthing:latest
+        name: syncthing
+        ports:
+        - containerPort: 8384
+          name: syncthing
+          protocol: TCP
+        - containerPort: 22000
+          protocol: TCP
+          name: to-listen
+        - containerPort: 22000
+          protocol: UDP
+          name: to-discover
+        volumeMounts:
+        - name: syncthing-persistent-storage
+          mountPath: /data/syncthing
+      volumes:
+      - name: syncthing-persistent-storage
+        persistentVolumeClaim:
+          claimName: syncthing-pv-claim

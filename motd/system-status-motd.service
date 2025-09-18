@@ -1,0 +1,9 @@
+[Unit]
+Description=Generate System Info for MotD
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c '/usr/lib/custom-motd/status-motd.sh > /etc/motd.d/00-system-status'
+
+[Install]
+WantedBy=default.target

@@ -1,17 +1,19 @@
 ## Self-hosted Syncthing Deployment
 
 Inspired by [Tim Bai's Syncthing on K8s](https://tim.bai.uno/home-k8s/syncthing/)
+Persistent Volumes now use NFS
 
 ### Deployment Steps:
 
 ```
 # I have an alias k='kubectl' in my .bashrc
-
 k create namespace syncthing
-k apply -f syncthing-pv.yaml -n syncthing
-k apply -f syncthing-pv-claim.yaml  -n syncthing
-k apply -f syncthing-service.yaml -n syncthing
+k apply -f syncthing-pv-data.yaml -n syncthing
+k apply -f syncthing-pv-config.yaml -n syncthing
+k apply -f syncthing-pvc-data.yaml -n syncthing
+k apply -f syncthing-pvc-config.yaml -n syncthing
 k apply -f syncthing-deployment.yaml -n syncthing
+k apply -f syncthing-service.yaml -n syncthing
 ```
 
 ### Web configuration page:

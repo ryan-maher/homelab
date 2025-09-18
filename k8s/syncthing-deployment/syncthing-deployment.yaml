@@ -30,9 +30,14 @@ spec:
           protocol: UDP
           name: to-discover
         volumeMounts:
-        - name: syncthing-persistent-storage
-          mountPath: /data/syncthing
+        - name: data
+          mountPath: /sync-files
+        - name: config
+          mountPath: /config
       volumes:
-      - name: syncthing-persistent-storage
+      - name: data
         persistentVolumeClaim:
-          claimName: syncthing-pv-claim
+          claimName: syncthing-pvc-data
+      - name: config
+        persistentVolumeClaim:
+          claimName: syncthing-pvc-config

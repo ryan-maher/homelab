@@ -1,0 +1,10 @@
+[Unit]
+Description=A timer to trigger MotD generation every 5 minutes
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=5min
+Unit=system-status-motd.service
+
+[Install]
+WantedBy=default.target

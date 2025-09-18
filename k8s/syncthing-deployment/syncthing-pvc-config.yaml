@@ -1,13 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: syncthing-pv-claim
-  labels:
-    app: syncthing
+  name: syncthing-pvc-config
 spec:
-  storageClassName: local-storage
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 5Gi
+  storageClassName: nfs-storage

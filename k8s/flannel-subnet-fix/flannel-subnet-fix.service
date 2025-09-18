@@ -1,0 +1,10 @@
+[Unit]
+Description=Service to create flannel subnet file
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/flannel-subnet-fix/flannel-subnet-fix.sh
+
+[Install]
+WantedBy=multi-user.target

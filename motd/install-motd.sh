@@ -4,6 +4,10 @@
 sudo dnf install cargo -y
 sudo cargo install lolcrab --root /usr
 
+# Install figlet for node name art
+sudo dnf install epel-release
+sudo dnf install figlet
+
 # Install motd script and service to update motd
 sudo mkdir /usr/lib/custom-motd
 sudo install --owner=root --group=root --mode=744 ./status-motd.sh /usr/lib/custom-motd/

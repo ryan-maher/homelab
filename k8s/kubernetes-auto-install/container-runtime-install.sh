@@ -24,11 +24,13 @@ sudo sed -i '/^disabled_plugins = \["cri"\]/ s/^/#/' "/etc/containerd/config.tom
 echo "
 version = 2
 
-[plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.10"
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  runtime_type = "io.containerd.runc.v2"
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+[plugins.\"io.containerd.grpc.v1.cri\"]
+  sandbox_image = \"registry.k8s.io/pause:3.10\"
+
+[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc]
+  runtime_type = \"io.containerd.runc.v2\"
+
+[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc.options]
   SystemdCgroup = true" | sudo tee -a /etc/containerd/config.toml
 
 # Restart containerd

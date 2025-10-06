@@ -34,6 +34,15 @@ spec:
           mountPath: /sync-files
         - name: config
           mountPath: /config
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "2"
+          limits:
+            memory: "4Gi"
+            cpu: "2"
+      securityContext:
+        fsGroup: 911
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -41,3 +50,4 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: syncthing-pvc-config
+

@@ -5,4 +5,4 @@
 ./container-runtime-install.sh  
 ./kubernetes-install.sh
 
-echo "\nAll done!"
+echo -e "\nAll done!"

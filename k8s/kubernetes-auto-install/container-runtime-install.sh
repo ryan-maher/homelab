@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Uninstall old versions and install docker
-sudo dnf remove docker \
+sudo dnf -y remove docker \
                   docker-client \
                   docker-client-latest \
                   docker-common \
@@ -14,7 +14,7 @@ sudo dnf remove docker \
 
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl enable --now docker
 
 # Comment out line in /etc/containerd/config.toml
@@ -24,12 +24,14 @@ sudo sed -i '/^disabled_plugins = \["cri"\]/ s/^/#/' "/etc/containerd/config.tom
 echo "
 version = 2
 
-[plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.10"
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  runtime_type = "io.containerd.runc.v2"
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-  SystemdCgroup = true" >> /etc/containerd/config.toml
+[plugins.\"io.containerd.grpc.v1.cri\"]
+  sandbox_image = \"registry.k8s.io/pause:3.10\"
+
+[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc]
+  runtime_type = \"io.containerd.runc.v2\"
+
+[plugins.\"io.containerd.grpc.v1.cri\".containerd.runtimes.runc.options]
+  SystemdCgroup = true" | sudo tee -a /etc/containerd/config.toml
 
 # Restart containerd
 sudo systemctl restart containerd

@@ -25,4 +25,4 @@ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 # (Optional) Enable the kubelet service before running kubeadm:
 sudo systemctl enable --now kubelet
 
-echo "\nInstallation complete! Now you can either initialize your node as a control plane or join it to an existing cluster"
+echo -e "\nInstallation complete! Now you can either initialize your node as a control plane or join it to an existing cluster"

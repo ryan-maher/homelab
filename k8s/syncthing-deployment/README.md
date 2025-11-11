@@ -2,7 +2,7 @@
 
 Inspired by [Tim Bai's Syncthing on K8s](https://tim.bai.uno/home-k8s/syncthing/)
 
-Persistent Volumes now use NFS
+Persistent Volumes now use Longhorn
 
 ### Deployment Steps:
 
